@@ -1,7 +1,8 @@
 <?php 	require_once 'include/init.php.inc';
 	
 	//Prepare the Query
-	$query = $sql->prepare("INSERT INTO `Name`(`NameVorname`, `NameNachname`, `NameTrainID`) VALUES ( :vorname, :nachname, 1)");
+	$query = $sql->prepare("INSERT INTO `Name`(`NameVorname`, `NameNachname`, `NameTrainID`) VALUES ( :vorname, :nachname, 1)"); //Neuen Benutzer anlegen, NameTrainID wird mit 1 belegt
+	
 
 	//Fill the data-array for prepared query
 	$data = Array(
@@ -15,7 +16,6 @@
 	$lastID = $sql->lastInsertId();
 
 
-	//now get the freshly created name
 	$name = $sql->query("SELECT * FROM `Name` WHERE `NameID` = $lastID")->fetchAll();
 	//html_dump($_POST);
 
