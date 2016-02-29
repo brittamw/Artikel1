@@ -2,30 +2,44 @@
 
 	
 	//Um nächstes workout anzuzeigen, alle Tabellen zusammen führen um individuell für Benutzer auszuwählen
-	//NameID muss ID sein, die man in sign-up-name.php und id-weiter.php als Benutzer eingibt, also variabel
+	//NameID muss ID sein, die man in sign-up-name.php und log-in-name.php als Benutzer eingibt, also variabel
 			
-	$query = $sql->prepare("SELECT `Work1`, `Work2`, `Work3`, `Work4` FROM `Name`, `Workout`, `Training` 
+	$query = $sql->prepare("SELECT `TrainWeek` Woche, `TrainTag` Tag, `Work1` Übung1, `Work2` Übung2, `Work3` Übung3, `Work4` Übung4 FROM `Name`, `Workout`, `Training` 
 							WHERE `TrainWorkID` = `WorkID` AND `NameTrainID` = `TrainID` AND `NameID` = ?");	
 								
-		
-
-	//$workid = $_POST['NameID'];
-	//Kann die Post Methode nur Strings übergeben? Wie konvertieren zu Int?
 	
-	$workid = (is_numeric($_POST['NameID']) ? (int)$_POST['NameID'] : 0);
+	$workid = $_POST['NameID'];
 	$query->execute(array($workid));
 	$allidwork = $query->fetchAll();
 	
-	html_dump($_POST);
+	//NameTrainID um 1 hochzählen, damit beim nächsten mal auch das nächste Training angezeigt wird.
+	//Falls NameTrainID = 185 (maximale ID in Datenbank) dann wieder auf 101 zurück setzen, damit man von vorne anfangen kann
 	
+		
+	$query = $sql->prepare("	
+	UPDATE
+        `Name`
+    SET
+        `NameTrainID` =
+        (
+            CASE `NameTrainID` 
+                WHEN
+                    185
+                THEN
+                    101
+                ELSE
+					((`NameTrainID`)+1)
+                  
+            END
+        )
+    WHERE
+        `NameID` = ?	
+	");
 	
-	
-	
-	
-	
-	
-	
+	$updatetrainid = $_POST['NameID'];
+	$query->execute(array($updatetrainid));
 
+	
 require_once 'include/header.html.inc';
 ?>
 <div>
@@ -34,14 +48,13 @@ require_once 'include/header.html.inc';
 	
 	<?=html_table_from_array($allidwork)?>
 	
-	<br>Führe von jeder Übung 20 Wiederholungen aus.</br>
-	<br>Wenn du fertig bist, fange von vorne an und führe nochmals 20 Wiederholungen von jeder Übung aus!</br>
+	<h3>Führe von jeder Übung 20 Wiederholungen aus. Wenn du fertig bist, fange von vorne an und führe nochmals 20 Wiederholungen von jeder Übung aus!</h3>
 	
 	
 	
 	<h2>Fertig?</h2>
+	
 	<form id="form-training-fertig" name="training-fertig" method="POST" target="_self" action = "training-fertig.php"></form>   
-
 	<input form="form-training-fertig" type="submit" value="Fertig" required><br>
 	
 </div>
