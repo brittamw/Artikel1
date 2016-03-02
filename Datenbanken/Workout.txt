@@ -1,0 +1,12 @@
+CREATE TABLE Workout (WorkID varchar(255) PRIMARY KEY,
+                      Work1 varchar(255), 
+                      Work2 varchar(255), 
+                      Work3 varchar(255), 
+                      Work4 varchar(255)
+                     );
+
+INSERT INTO Workout (WorkID, Work1, Work2, Work3, Work4) values ('legs1', 
+                                                                 'Jump Squats', 
+                                                                 'Walking Lunges', 
+                                                                 'Knee Ups', 
+                                                                 'Squats');
