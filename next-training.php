@@ -48,14 +48,17 @@ require_once 'include/header.html.inc';
 	
 	<?=html_table_from_array($allidwork)?>
 	
-	<h3>Führe von jeder Übung 20 Wiederholungen aus. Wenn du fertig bist, fange von vorne an und führe nochmals 20 Wiederholungen von jeder Übung aus!</h3>
+	<h3>Führe von jeder Übung 2 mal 20 Wiederholungen aus! 
+	Sonntag ist Ruhetag! Dienstag, Donnerstag und Samstag, walke 40 Minuten!</h3>
 	
+	<h3>Alle Übungen erklärt findest du hier:</h3>
+	<form id="form-exercises" name="exercises" method="POST" target="_self" action = "all-exercises-explained.php"></form> 
+	<input form="form-exercises" type="submit" value="Ansehen"><br>
 	
 	
 	<h2>Fertig?</h2>
-	
 	<form id="form-training-fertig" name="training-fertig" method="POST" target="_self" action = "training-fertig.php"></form>   
-	<input form="form-training-fertig" type="submit" value="Fertig" required><br>
+	<input form="form-training-fertig" type="submit" value="JA" required><br>
 	
 </div>
 <?php require_once 'include/footer.html.inc'; ?>
