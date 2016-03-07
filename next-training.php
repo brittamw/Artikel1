@@ -4,8 +4,11 @@
 	//Um nächstes workout anzuzeigen, alle Tabellen zusammen führen um individuell für Benutzer auszuwählen
 	//NameID muss ID sein, die man in sign-up-name.php und log-in-name.php als Benutzer eingibt, also variabel
 			
-	$query = $sql->prepare("SELECT `TrainWeek` Woche, `TrainTag` Tag, `Work1` Übung1, `Work2` Übung2, `Work3` Übung3, `Work4` Übung4 FROM `Name`, `Workout`, `Training` 
-							WHERE `TrainWorkID` = `WorkID` AND `NameTrainID` = `TrainID` AND `NameID` = ?");	
+	$query = $sql->prepare("SELECT `TrainWeek` Woche, `TrainTag` Tag, `ActTitle` Übung FROM `Name`, `Workout`, `Training`, `Acticity` 
+							WHERE `TrainID` = `WorkTrainID` AND 
+							`NameTrainID` = `TrainID` AND 
+							`WorkActID` = `ActID` AND
+							`NameID` = ?");	
 								
 	
 	$workid = $_POST['NameID'];
